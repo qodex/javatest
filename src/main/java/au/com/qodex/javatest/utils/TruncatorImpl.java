@@ -12,13 +12,17 @@ public class TruncatorImpl implements Truncator {
         System.out.println("Truncating '"+str+"', length "+str.length()+", max length "+len);
         str = str == null ? "" : str;
         String result = str;
-        boolean needsTruncated = str.length()>len && (msgHalf1+msgHalf2).length()<str.length();
+        int truncMsgLength = (msgHalf1+msgHalf2).length();
+        boolean needsTruncated = str.length()>len && truncMsgLength<str.length();
+        if(needsTruncated && truncMsgLength > len) throw new RuntimeException("Something's wrong with your logic, truncated message is longer than your max length.");
         if(needsTruncated) {
             Halves halves = new Halves(str);
             int excess = str.length() - len;
             int firstHalfExcess = excess/2;
             int secondHalfExcess = excess - firstHalfExcess;
+            System.out.println("First hlf excess "+(firstHalfExcess + msgHalf1.length()));
             halves.firstHalfExcess(firstHalfExcess + msgHalf1.length());
+            System.out.println("Secnd hlf excess "+(secondHalfExcess + msgHalf2.length()));
             halves.secondHalfExcess(secondHalfExcess + msgHalf2.length());
             halves.firstHalfAppend(msgHalf1);
             halves.secondHalfPreppend(msgHalf2);
@@ -39,8 +43,8 @@ class Halves {
         int halfLength = str.length()/2;
         this.firstHalf = str.substring(0, halfLength);
         this.secondHalf = str.substring(firstHalf.length(), str.length());
-        System.out.println("First half: "+this.firstHalf);
-        System.out.println("Second half: "+this.secondHalf);
+        System.out.println("First half: "+this.firstHalf+" length "+this.firstHalf.length());
+        System.out.println("Second half: "+this.secondHalf+" length "+this.secondHalf.length());
     }
 
     public void firstHalfExcess(int excess) {

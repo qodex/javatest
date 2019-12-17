@@ -20,7 +20,7 @@ public class SubscriptionController {
     @GetMapping(value = "/subscribe/{orderDetails}")
     public String subscribe(@PathVariable String orderDetails) {
         // String orderDetails = getOrderDetails(request);
-        String truncatedOrderDetails = trunc.truncate(orderDetails, 15);
+        String truncatedOrderDetails = trunc.truncate(orderDetails, 250);
         log(truncatedOrderDetails);
         return truncatedOrderDetails;
     }
