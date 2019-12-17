@@ -20,9 +20,7 @@ public class TruncatorImpl implements Truncator {
             int excess = str.length() - len;
             int firstHalfExcess = excess/2;
             int secondHalfExcess = excess - firstHalfExcess;
-            System.out.println("First hlf excess "+(firstHalfExcess + msgHalf1.length()));
             halves.firstHalfExcess(firstHalfExcess + msgHalf1.length());
-            System.out.println("Secnd hlf excess "+(secondHalfExcess + msgHalf2.length()));
             halves.secondHalfExcess(secondHalfExcess + msgHalf2.length());
             halves.firstHalfAppend(msgHalf1);
             halves.secondHalfPreppend(msgHalf2);
@@ -43,8 +41,6 @@ class Halves {
         int halfLength = str.length()/2;
         this.firstHalf = str.substring(0, halfLength);
         this.secondHalf = str.substring(firstHalf.length(), str.length());
-        System.out.println("First half: "+this.firstHalf+" length "+this.firstHalf.length());
-        System.out.println("Second half: "+this.secondHalf+" length "+this.secondHalf.length());
     }
 
     public void firstHalfExcess(int excess) {
@@ -52,7 +48,6 @@ class Halves {
     }
 
     public void secondHalfExcess(int excess) {
-        System.out.println("excess "+excess+", string length "+this.secondHalf.length());
         this.secondHalf = this.secondHalf.substring(excess-1);
     }
 
